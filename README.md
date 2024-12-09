@@ -1,6 +1,6 @@
 # Personal Portfolio Website
 
-Welcome to my personal portfolio website! This repository contains the source code for my portfolio, which is hosted on **GitHub Pages** at [https://<username>.github.io](https://pailakarthik.github.io).
+Welcome to my personal portfolio website! This repository contains the source code for my portfolio, which is hosted on **GitHub Pages** at [https://pailakarthik.github.io](https://pailakarthik.github.io).
 
 ## 🌟 Features
 
