@@ -1,7 +1,7 @@
 export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string }) {
   return (
     <div
-      className="overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-4"
+      className="scroll-x overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-4"
       role="img"
       aria-label={`Architecture flow: ${steps.join(" to ")}`}
     >

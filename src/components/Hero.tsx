@@ -70,7 +70,7 @@ export function Hero() {
           </motion.p>
           <motion.h1
             {...anim(0.08)}
-            className="mt-4 text-5xl leading-[1.02] font-bold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
+            className="mt-4 text-[2.65rem] leading-[1.04] font-bold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
           >
             Karthik Paila
           </motion.h1>

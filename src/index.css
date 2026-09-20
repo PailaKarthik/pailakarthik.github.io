@@ -29,6 +29,29 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+/* ---------- responsive hardening ---------- */
+img {
+  max-width: 100%;
+  height: auto;
+}
+svg {
+  max-width: 100%;
+}
+/* grid children must be allowed to shrink past content width */
+.wrap .grid > * {
+  min-width: 0;
+}
+.mono {
+  overflow-wrap: break-word;
+}
+/* smooth momentum scrolling for wide diagrams on touch */
+.scroll-x {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
