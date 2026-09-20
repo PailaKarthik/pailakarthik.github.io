@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { projects, type Project, type ProjectLink } from "../data/portfolio";
 import { ArchitectureDiagram, FlowStrip } from "./ArchitectureDiagram";
@@ -93,17 +92,13 @@ function ProjectPanel({ project, defaultOpen }: { project: Project; defaultOpen?
         </div>
       </div>
 
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            id={panelId}
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
-          >
-            <div className="grid gap-8 border-t border-white/10 px-6 py-8 sm:px-10 lg:grid-cols-2">
+      <div
+        id={panelId}
+        className={`expandable ${open ? "open" : ""}`}
+        inert={!open}
+      >
+        <div>
+          <div className="grid gap-6 border-t border-white/10 px-5 py-6 sm:gap-8 sm:px-10 sm:py-8 lg:grid-cols-2">
               <div>
                 <h4 className="mono text-[12px] tracking-[0.2em] text-white uppercase">Problem</h4>
                 <p className="mt-2 text-[15px] leading-relaxed text-[#d4d4d4]">{project.problem}</p>
@@ -133,9 +128,8 @@ function ProjectPanel({ project, defaultOpen }: { project: Project; defaultOpen?
                 <ArchitectureDiagram steps={project.arch} id={project.index} />
               </div>
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+        </div>
+      </div>
     </article>
   );
 }

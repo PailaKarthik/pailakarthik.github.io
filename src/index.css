@@ -214,6 +214,31 @@ body {
     transform: none;
   }
 }
+
+/* ---------- bulletproof expand/collapse (no JS height measuring) ---------- */
+.expandable {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease,
+    visibility 0s linear 0.5s;
+}
+.expandable.open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  visibility: visible;
+  transition:
+    grid-template-rows 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+.expandable > div {
+  overflow: hidden;
+  min-height: 0;
+  min-width: 0;
+}
 .eyebrow {
   font-family: var(--font-mono);
   font-size: 0.72rem;
