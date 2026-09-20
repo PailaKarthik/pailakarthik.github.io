@@ -71,15 +71,32 @@ body {
 }
 .bg-grid {
   position: fixed;
-  inset: 0;
+  inset: -60px;
   z-index: -1;
   pointer-events: none;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 56px 56px;
-  mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
-  -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 30%, transparent 75%);
+    radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1.5px),
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.028) 1px, transparent 1px);
+  background-size:
+    56px 56px,
+    280px 280px,
+    280px 280px,
+    56px 56px,
+    56px 56px;
+  mask-image: radial-gradient(ellipse 130% 105% at 50% 35%, black 55%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 130% 105% at 50% 35%, black 55%, transparent 100%);
+  animation: grid-drift 24s linear infinite;
+}
+@keyframes grid-drift {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(56px, 56px, 0);
+  }
 }
 .bg-noise {
   position: fixed;
