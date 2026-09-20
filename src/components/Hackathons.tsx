@@ -18,8 +18,8 @@ export function Hackathons() {
             <article
               className={
                 i === 0
-                  ? "glass flex h-full flex-col rounded-3xl p-6"
-                  : "hairline flex h-full flex-col rounded-3xl bg-white/[0.015] p-6"
+                  ? "glass lift spotlight flex h-full flex-col rounded-[24px] p-6"
+                  : "glass lift spotlight flex h-full flex-col rounded-[24px] bg-white/[0.015] p-6"
               }
             >
               {i === 0 && (

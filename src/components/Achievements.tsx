@@ -17,8 +17,8 @@ export function Achievements() {
             <div
               className={
                 "featured" in a && a.featured
-                  ? "glass h-full rounded-[24px] border-white/[0.16] p-6"
-                  : "hairline h-full rounded-[24px] bg-white/[0.015] p-6"
+                  ? "glass lift spotlight h-full rounded-[24px] border-white/[0.16] p-6"
+                  : "glass lift spotlight h-full rounded-[24px] p-6"
               }
             >
               <p className="eyebrow">{a.title}</p>

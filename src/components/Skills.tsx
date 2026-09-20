@@ -1,6 +1,7 @@
 import { skills } from "../data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { Spotlight } from "./ui/Spotlight";
 
 export function Skills() {
   return (
@@ -13,28 +14,27 @@ export function Skills() {
       />
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((g, i) => (
-          <Reveal key={g.title} delay={Math.min(i * 0.05, 0.2)}>
-            <div
-              className={
-                i < 2
-                  ? "glass h-full rounded-3xl p-6"
-                  : "hairline h-full rounded-3xl bg-white/[0.015] p-6"
-              }
-            >
-              <h3 className="mono text-[12px] tracking-[0.18em] text-white uppercase">
-                {g.title}
-              </h3>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {g.items.map((s) => (
-                  <li
-                    key={s}
-                    className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[13.5px] text-[#d4d4d4]"
-                  >
-                    {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <Reveal key={g.title} delay={Math.min(i * 0.08, 0.4)} y={36}>
+            <Spotlight className="glass lift h-full rounded-[24px] p-6">
+              <div>
+                <p className="mono text-[11px] tracking-[0.24em] text-[#8a8a8a] uppercase">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mono mt-1.5 text-[13px] tracking-[0.18em] text-white uppercase">
+                  {g.title}
+                </h3>
+                <ul className="mt-4 flex flex-wrap gap-2">
+                  {g.items.map((s) => (
+                    <li
+                      key={s}
+                      className="pill rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1.5 text-[13.5px] text-[#d4d4d4]"
+                    >
+                      {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Spotlight>
           </Reveal>
         ))}
       </div>

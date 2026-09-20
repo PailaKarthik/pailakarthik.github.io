@@ -42,7 +42,7 @@ function ProjectPanel({ project, defaultOpen }: { project: Project; defaultOpen?
   const panelId = `case-${project.index}`;
   return (
     <article
-      className="glass group overflow-hidden rounded-[28px] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/[0.18] hover:bg-white/[0.05]"
+      className="glass lift spotlight group overflow-hidden rounded-[28px]"
       aria-labelledby={`${panelId}-title`}
     >
       <div className="p-6 sm:p-10">
@@ -118,7 +118,7 @@ function ProjectPanel({ project, defaultOpen }: { project: Project; defaultOpen?
                   {project.engineering.map((e) => (
                     <li
                       key={e}
-                      className="flex gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] px-3.5 py-3 text-sm leading-relaxed text-[#d4d4d4]"
+                      className="pill flex gap-2.5 rounded-xl border border-white/[0.08] bg-white/[0.02] px-3.5 py-3 text-sm leading-relaxed text-[#d4d4d4]"
                     >
                       <span aria-hidden="true" className="mt-1.5 size-1.5 shrink-0 rounded-full bg-white" />
                       {e}
