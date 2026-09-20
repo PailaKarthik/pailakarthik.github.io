@@ -13,3 +13,15 @@ export function LinkedinIcon({ className }: { className?: string }) {
     </svg>
   );
 }
+
+export function FigmaIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden="true">
+      <path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5Z" />
+      <path d="M12 2h3.5A3.5 3.5 0 1 1 12 9V2Z" />
+      <path d="M12 9v12a3.5 3.5 0 1 0 3.5-3.5H12V9Z" />
+      <path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5Z" />
+      <circle cx="15.5" cy="5.5" r="3.5" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}

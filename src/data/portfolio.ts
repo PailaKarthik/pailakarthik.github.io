@@ -1,12 +1,14 @@
 export const profile = {
   name: "Karthik Paila",
   role: "Full-Stack Developer · AI Builder",
-  eyebrow: "Full-Stack • AI • Software Engineering",
+  eyebrow: "Full-Stack Developer · AI Builder",
+  headline: "Build practical software. Explore intelligent systems.",
   tagline:
     "I build full-stack products and AI-powered systems — from real-time applications and backend infrastructure to RAG pipelines and LLM-driven experiences.",
-  location: "India",
+  location: "Srikakulam, Andhra Pradesh, India",
   email: "pailakarthik0136@gmail.com",
   phone: "+91 7780190462",
+  photo: "/assets/profile/profile.jpg",
   links: {
     github: "https://github.com/PailaKarthik/",
     linkedin: "https://www.linkedin.com/in/paila-karthik/",
@@ -15,25 +17,32 @@ export const profile = {
     repo: "https://github.com/PailaKarthik/pailakarthik.github.io",
   },
   resumePath: "/assets/resume/Karthik-Paila-Resume.pdf",
-  credibility: [
-    { value: "1850+", label: "LeetCode rating" },
-    { value: "1500+", label: "DSA problems" },
+  stats: [
     { value: "9.26", label: "CGPA" },
-    { value: "Runner-Up", label: "Hack24 · ₹30K" },
+    { value: "1850+", label: "LeetCode Rating" },
+    { value: "1500+", label: "DSA Problems" },
+    { value: "4", label: "Hackathons" },
   ],
 } as const;
 
 export const nav = [
-  { label: "About", href: "#about" },
-  { label: "Work", href: "#work" },
-  { label: "Skills", href: "#skills" },
-  { label: "Achievements", href: "#achievements" },
-  { label: "Hackathons", href: "#hackathons" },
-  { label: "Education", href: "#education" },
-  { label: "Contact", href: "#contact" },
+  { id: "home", label: "Home", href: "#home" },
+  { id: "about", label: "About", href: "#about" },
+  { id: "skills", label: "Skills", href: "#skills" },
+  { id: "work", label: "Work", href: "#work" },
+  { id: "achievements", label: "Achievements", href: "#achievements" },
+  { id: "hackathons", label: "Hackathons", href: "#hackathons" },
+  { id: "education", label: "Education", href: "#education" },
+  { id: "contact", label: "Contact", href: "#contact" },
 ] as const;
 
 export type ProjectStatus = "In Development" | "Live" | "Build Available";
+
+export interface ProjectLink {
+  label: string;
+  href: string;
+  kind: "demo" | "build" | "github" | "figma";
+}
 
 export interface Project {
   index: string;
@@ -48,7 +57,7 @@ export interface Project {
   engineering: string[];
   flow: string[];
   arch: string[];
-  links: { label: string; href: string; kind: "demo" | "build" | "github" }[];
+  links: ProjectLink[];
 }
 
 export const projects: Project[] = [
@@ -59,7 +68,7 @@ export const projects: Project[] = [
     status: "In Development",
     statusNote: "Engineering case study — not yet live",
     description:
-      "A full-stack competitive aptitude ecosystem: 1v1 challenges, timed contests, ratings, leaderboards, structured learning, events, discussions, contributions and performance analytics.",
+      "A full-stack competitive aptitude platform with 1v1 challenges, timed contests, ratings, leaderboards, structured learning, events, discussions, contributions and performance analytics across multiple aptitude domains.",
     stack: [
       "Next.js",
       "TypeScript",
@@ -78,23 +87,32 @@ export const projects: Project[] = [
     solution:
       "Make prep competitive and measurable: every attempt feeds ratings, streaks and weak-area analysis, with live play and an advisory AI Performance Coach pointing to the next best step.",
     engineering: [
-      "Redis matchmaking + Socket.IO live rooms with server-owned timers and scoring",
+      "Real-time matchmaking and competitive gameplay with Redis and Socket.IO",
       "Elo-style challenge ratings, contest standings and auto-submit",
       "BullMQ background jobs for ratings, events and notifications",
-      "Advisory RAG over the question bank (pgvector embeddings) for similar-problem retrieval",
-      "LangGraph performance-coach workflow with tool calling and human-approved contribution review",
+      "Agentic AI and RAG with LangChain.js, LangGraph.js and tool calling",
+      "Embeddings + pgvector for performance coaching and semantic problem retrieval",
+      "AI-assisted question review with mandatory human approval",
     ],
     flow: ["Matchmaking", "Challenge", "Rating", "Leaderboard", "AI Coach"],
     arch: [
+      "Client",
       "Next.js",
       "NestJS",
-      "PostgreSQL + Prisma",
+      "PostgreSQL",
       "Redis",
       "Socket.IO / BullMQ",
       "LangGraph / LangChain",
       "pgvector",
     ],
-    links: [{ label: "GitHub", href: "https://github.com/PailaKarthik/Apteez", kind: "github" }],
+    links: [
+      { label: "GitHub", href: "https://github.com/PailaKarthik/Apteez", kind: "github" },
+      {
+        label: "View Figma",
+        href: "https://www.figma.com/make/vTx6bPuzuEFUjdunM1WlRo/apteez?fullscreen=1&t=7mZoqoB5t8ZDKZmK-1&code-node-id=0-6",
+        kind: "figma",
+      },
+    ],
   },
   {
     index: "02",
@@ -103,7 +121,7 @@ export const projects: Project[] = [
     status: "Live",
     statusNote: "Live application",
     description:
-      "A production-oriented AI learning platform that converts PDF study material into searchable knowledge — grounded tutoring, adaptive assessments, concept mastery, growth analysis and personalised recommendations.",
+      "A production-oriented AI learning platform that converts PDF study material into searchable knowledge — grounded tutoring, adaptive assessments, concept mastery, growth analysis and personalized recommendations.",
     stack: [
       "Next.js",
       "TypeScript",
@@ -122,11 +140,11 @@ export const projects: Project[] = [
     solution:
       "Turn static PDFs into an active loop: upload → extract + OCR → chunk + embed → ask a citing tutor → take adaptive quizzes → watch mastery update from real evidence.",
     engineering: [
-      "Asynchronous PDF processing (OCR + document intelligence) on BullMQ queues",
+      "Asynchronous PDF/OCR processing with BullMQ background jobs",
       "Gemini embeddings with PostgreSQL + pgvector retrieval",
       "Citation-validated RAG — the tutor refuses to guess without evidence",
       "Groq-powered Tutor and assessment workflows with adaptive question selection",
-      "Persistent learning telemetry: mastery, growth trends and AI-usage ledger",
+      "Mastery updates with persistent learning and AI usage telemetry",
     ],
     flow: ["PDF", "OCR", "Chunks", "Embeddings", "pgvector", "RAG", "Tutor"],
     arch: [
@@ -136,11 +154,16 @@ export const projects: Project[] = [
       "Embeddings",
       "PostgreSQL + pgvector",
       "RAG",
-      "Tutor / Assessment",
+      "AI Tutor / Assessment",
     ],
     links: [
       { label: "Live Demo", href: "https://web-theta-two-77.vercel.app/", kind: "demo" },
       { label: "GitHub", href: "https://github.com/PailaKarthik/AI-Study-Companion", kind: "github" },
+      {
+        label: "View Figma",
+        href: "https://www.figma.com/make/jA976lVGck9OL8iQsaJVOH/Implement-PDF-Features?t=CLvdJiMxQtT9t9v6-0",
+        kind: "figma",
+      },
     ],
   },
   {
@@ -148,9 +171,9 @@ export const projects: Project[] = [
     name: "Risk View",
     category: "Location-Aware Travel Safety Intelligence",
     status: "Build Available",
-    statusNote: "Android / Expo build",
+    statusNote: "Expo build — not a web app",
     description:
-      "A location-aware travel safety platform: discover nearby scam and danger reports, submit community incidents, monitor real-time safety information on an interactive map.",
+      "A location-aware travel safety platform: discover nearby scam and danger reports, submit community incidents, monitor real-time safety information through an interactive map.",
     stack: [
       "React Native",
       "Expo",
@@ -169,28 +192,32 @@ export const projects: Project[] = [
       "A community safety network: every traveller contributes reports, the map surfaces nearby risk, and AI summarises local conditions into actionable safety insight.",
     engineering: [
       "Geospatial discovery of nearby incidents on an interactive map",
-      "Community incident reporting with voting for reliability",
-      "AI-assisted report validation and summarisation",
-      "RAG over community reports for context-aware safety queries",
-      "Groq-generated local safety insights with real-time alerts",
+      "Community incident reporting with reliability signals",
+      "AI-assisted report validation and incident summarization",
+      "RAG-based retrieval over community reports",
+      "Groq-generated, context-aware safety insights",
     ],
     flow: ["Location", "Incidents", "MongoDB", "Retrieval", "Groq", "Safety Insight"],
     arch: [
-      "React Native / Expo",
+      "React Native",
       "API",
-      "Location + Incident Data",
       "MongoDB",
-      "RAG Retrieval",
+      "Retrieval",
       "Groq",
       "Safety Intelligence",
     ],
     links: [
       {
-        label: "Android / Expo Build",
-        href: "https://expo.dev/accounts/karthikpaila/projects/riskview/builds/5c4a893e-dc81-42c7-9b95-dbf877bd70d8",
+        label: "View Build",
+        href: "https://expo.dev/accounts/karthikpaila/projects/riskview/builds/feb3d11d-7482-476b-b271-0a02084952fb",
         kind: "build",
       },
       { label: "GitHub", href: "https://github.com/PailaKarthik/RiskView", kind: "github" },
+      {
+        label: "View Figma",
+        href: "https://www.figma.com/make/UiNZEZhH4u5EqfpJKRmgRf/RiskView?t=mWrJpKLtwyyCeVMK-0",
+        kind: "figma",
+      },
     ],
   },
 ];
@@ -202,46 +229,52 @@ export const skills = [
   },
   {
     title: "Frontend",
-    items: ["Next.js", "React", "React Native", "Expo", "Redux", "Tailwind CSS", "Framer Motion"],
+    items: ["Next.js", "React", "React Native", "Expo", "Redux", "Tailwind", "Framer Motion"],
   },
   {
     title: "Backend",
-    items: ["Node.js", "Express", "NestJS", "FastAPI", "REST", "GraphQL", "WebSockets"],
+    items: ["Node.js", "Express", "NestJS", "FastAPI", "RESTful APIs", "GraphQL (Basics)", "WebSockets"],
   },
   {
     title: "AI / ML",
-    items: ["LLMs", "LangChain", "LangGraph", "RAG", "Embeddings", "FAISS", "Vector Databases"],
+    items: ["LLMs", "LangChain & LangGraph", "RAG", "Embeddings", "Vector DB (FAISS)"],
   },
   {
-    title: "Databases / Infra",
-    items: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "BullMQ", "Firebase"],
+    title: "Databases",
+    items: ["MongoDB", "PostgreSQL", "MySQL", "Redis", "BullMQ", "Firebase"],
   },
   {
-    title: "Tools / DevOps",
-    items: ["Git", "Docker", "AWS", "Figma"],
+    title: "Tools & DevOps",
+    items: ["Git", "Docker", "AWS (Basics)", "Figma"],
   },
 ] as const;
 
 export const achievements = [
   {
-    title: "LeetCode Knight",
+    title: "LeetCode Rating",
     metric: "1850+",
-    detail: "Top 5% globally · Knight Badge · ~1100 best global contest rank",
+    detail: "Top 5% globally · Knight Badge",
   },
   {
-    title: "Problem Solving",
+    title: "DSA Problems",
     metric: "1500+",
-    detail: "DSA problems solved across platforms",
+    detail: "Solved on LeetCode & GFG",
   },
   {
-    title: "SQL",
-    metric: "98%",
-    detail: "50+ advanced SQL challenges · 98% solution success rate",
+    title: "Campus Startup",
+    metric: "#1",
+    detail: "Selected #1 Campus Startup for ApteeZ — recognized for retention & market potential",
+    featured: true,
   },
   {
-    title: "Hack24",
-    metric: "₹30K",
-    detail: "1st Runner-Up · Campus Matrix · MVGR College",
+    title: "Advanced SQL Challenges",
+    metric: "50+",
+    detail: "98% solution success rate on LeetCode",
+  },
+  {
+    title: "Hackathons",
+    metric: "4",
+    detail: "1st Runner-Up at Hack24 (MVGR College) — Campus Matrix",
   },
   {
     title: "NPTEL AI",
@@ -254,7 +287,7 @@ export const hackathons = [
   {
     name: "Campus Matrix",
     event: "Hack24 · MVGR College",
-    result: "1st Runner-Up · ₹30,000",
+    result: "1st Runner-Up",
     description:
       "Interactive campus navigation system with visual map editing, classroom and timetable management, and GPS-based navigation.",
     links: [{ label: "GitHub", href: "https://github.com/PailaKarthik/CampusMatriX" }],
@@ -264,7 +297,7 @@ export const hackathons = [
     event: "Hackathon build",
     result: "Participant",
     description:
-      "AI-powered hearing assistance: environmental sound detection, audio classification, directional and priority-based alerts, speech-to-text and customisable sound modes.",
+      "AI-powered hearing assistance app for environmental sound detection using audio classification, directional and priority-based alerts, speech-to-text, and customizable sound modes.",
     links: [{ label: "GitHub", href: "https://github.com/PailaKarthik/X_auditory" }],
   },
   {
@@ -272,10 +305,12 @@ export const hackathons = [
     event: "Hackathon build",
     result: "Participant",
     description:
-      "Farmer assistance platform: crop disease diagnosis via image classification, government scheme discovery, emergency support, environmental risk alerts and AI chatbot guidance.",
+      "Farmer assistance app for crop disease diagnosis using image classification, government scheme discovery, emergency support, environmental risk alerts, and AI chatbot guidance.",
     links: [{ label: "GitHub", href: "https://github.com/PailaKarthik/GramaVikas" }],
   },
 ] as const;
+
+export const hackathonSummary = "4 participated · 1 top finish" as const;
 
 export const education = [
   {

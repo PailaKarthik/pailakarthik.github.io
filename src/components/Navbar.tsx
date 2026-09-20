@@ -3,9 +3,57 @@ import { FileText, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { nav, profile } from "../data/portfolio";
 
+/**
+ * Scroll-spy: observes each section and marks the dominant
+ * visible one active. Clicking a link sets it immediately;
+ * the observer corrects it on manual scroll.
+ */
+function useActiveSection(ids: readonly string[]) {
+  const [active, setActive] = useState<string>("home");
+
+  useEffect(() => {
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const setFromHash = () => {
+      const hash = window.location.hash.replace("#", "");
+      if (hash && ids.includes(hash)) setActive(hash);
+    };
+    setFromHash();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) {
+          const id = visible[0].target.id;
+          setActive(id);
+          window.history.replaceState(null, "", `#${id}`);
+        }
+      },
+      { rootMargin: "-35% 0px -55% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    window.addEventListener("hashchange", setFromHash);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("hashchange", setFromHash);
+    };
+  }, [ids]);
+
+  return [active, setActive] as const;
+}
+
+const sectionIds = nav.map((n) => n.id);
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useActiveSection(sectionIds);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -19,40 +67,58 @@ export function Navbar() {
       <div className="wrap">
         <nav
           aria-label="Primary"
-          className={`glass mt-3 flex items-center justify-between rounded-2xl px-4 py-2.5 transition-all duration-300 sm:px-5 ${
-            scrolled ? "shadow-[0_12px_40px_-12px_rgba(0,0,0,0.7)]" : "shadow-none"
-          }`}
-          style={scrolled ? { background: "rgba(10,12,19,0.78)" } : { background: "rgba(10,12,19,0.45)" }}
+          className="glass mt-3 flex items-center justify-between gap-3 rounded-[20px] py-2 pr-2 pl-4 transition-all duration-300 sm:pl-5"
+          style={
+            scrolled
+              ? { background: "rgba(5,5,5,0.72)", boxShadow: "0 12px 40px -12px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.08)" }
+              : { background: "rgba(5,5,5,0.4)" }
+          }
         >
-          <a href="#top" className="flex items-center gap-2.5" aria-label="Karthik Paila — home">
+          <a href="#home" className="flex shrink-0 items-center gap-2.5" aria-label="Karthik Paila — home">
             <span
               aria-hidden="true"
-              className="grid size-8 place-items-center rounded-lg text-sm font-bold text-white"
-              style={{ background: "linear-gradient(135deg,#4f7cff,#8b7cff)" }}
+              className="grid size-8 place-items-center rounded-xl border border-white/15 bg-white/[0.07] text-sm font-bold text-white"
             >
               K
             </span>
-            <span className="text-[15px] font-semibold tracking-tight">Karthik Paila</span>
+            <span className="hidden text-[15px] font-semibold tracking-tight min-[400px]:block">
+              Karthik Paila
+            </span>
           </a>
 
-          <ul className="hidden items-center gap-6 lg:flex">
-            {nav.map((n) => (
-              <li key={n.href}>
-                <a
-                  href={n.href}
-                  className="text-sm text-[#9aa0b2] transition-colors hover:text-white"
-                >
-                  {n.label}
-                </a>
-              </li>
-            ))}
+          <ul className="hidden items-center gap-1 lg:flex" role="list">
+            {nav.map((n) => {
+              const isActive = active === n.id;
+              return (
+                <li key={n.id}>
+                  <a
+                    href={n.href}
+                    aria-current={isActive ? "true" : undefined}
+                    onClick={() => setActive(n.id)}
+                    className={`relative rounded-xl px-3 py-2 text-[13.5px] transition-colors duration-200 ${
+                      isActive ? "text-white" : "text-[#8a8a8a] hover:text-[#d4d4d4]"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-active-pill"
+                        transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                        className="absolute inset-0 rounded-xl border border-white/15 bg-white/[0.1] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <span className="relative">{n.label}</span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <a
               href={profile.resumePath}
               download="Karthik-Paila-Resume.pdf"
-              className="hidden items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.06] px-3.5 py-2 text-sm font-medium transition-colors hover:bg-white/[0.12] sm:inline-flex"
+              className="hidden items-center gap-1.5 rounded-xl border border-white/15 bg-white px-3.5 py-2 text-sm font-semibold text-black transition-colors hover:bg-[#d4d4d4] sm:inline-flex"
             >
               <FileText className="size-4" aria-hidden="true" />
               Resume
@@ -77,25 +143,36 @@ export function Navbar() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.22 }}
-              className="glass mt-2 overflow-hidden rounded-2xl p-2 lg:hidden"
+              className="glass mt-2 overflow-hidden rounded-[20px] p-2 lg:hidden"
             >
               <ul className="flex flex-col">
-                {nav.map((n) => (
-                  <li key={n.href}>
-                    <a
-                      href={n.href}
-                      onClick={() => setOpen(false)}
-                      className="block rounded-xl px-4 py-3 text-[15px] text-[#c9cdd9] transition-colors hover:bg-white/[0.06] hover:text-white"
-                    >
-                      {n.label}
-                    </a>
-                  </li>
-                ))}
+                {nav.map((n) => {
+                  const isActive = active === n.id;
+                  return (
+                    <li key={n.id}>
+                      <a
+                        href={n.href}
+                        aria-current={isActive ? "true" : undefined}
+                        onClick={() => {
+                          setActive(n.id);
+                          setOpen(false);
+                        }}
+                        className={`block rounded-xl px-4 py-3 text-[15px] transition-colors ${
+                          isActive
+                            ? "border border-white/15 bg-white/[0.1] text-white"
+                            : "text-[#8a8a8a] hover:bg-white/[0.06] hover:text-white"
+                        }`}
+                      >
+                        {n.label}
+                      </a>
+                    </li>
+                  );
+                })}
                 <li className="p-2">
                   <a
                     href={profile.resumePath}
                     download="Karthik-Paila-Resume.pdf"
-                    className="flex items-center justify-center gap-2 rounded-xl bg-[#4f7cff] px-4 py-3 text-sm font-semibold text-white"
+                    className="flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black"
                   >
                     <FileText className="size-4" aria-hidden="true" />
                     Download Resume

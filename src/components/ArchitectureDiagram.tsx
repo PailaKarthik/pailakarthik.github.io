@@ -22,7 +22,7 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                   y1={42}
                   x2={x - 6}
                   y2={42}
-                  stroke="rgba(79,124,255,0.6)"
+                  stroke="rgba(255,255,255,0.45)"
                   strokeWidth="1.5"
                   markerEnd={`url(#arrow-${id})`}
                   className="flow-line"
@@ -34,14 +34,14 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                 width={118}
                 height={56}
                 rx={12}
-                fill={isLast ? "rgba(79,124,255,0.14)" : "rgba(255,255,255,0.045)"}
-                stroke={isLast ? "rgba(79,124,255,0.5)" : "rgba(255,255,255,0.14)"}
+                fill={isLast ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)"}
+                stroke={isLast ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.14)"}
               />
               <text
                 x={x + 59}
                 y={42}
                 textAnchor="middle"
-                fill={isLast ? "#cfd9ff" : "#dfe3ee"}
+                fill="#ffffff"
                 fontSize="10.5"
                 fontFamily="JetBrains Mono, monospace"
               >
@@ -52,7 +52,7 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                 x={x + 59}
                 y={56}
                 textAnchor="middle"
-                fill="#6b7184"
+                fill="#8a8a8a"
                 fontSize="9"
                 fontFamily="JetBrains Mono, monospace"
               >
@@ -63,7 +63,7 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
         })}
         <defs>
           <marker id={`arrow-${id}`} markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6" fill="none" stroke="rgba(79,124,255,0.8)" strokeWidth="1.2" />
+            <path d="M0,0 L6,3 L0,6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" />
           </marker>
         </defs>
       </svg>
@@ -73,11 +73,11 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
 
 export function FlowStrip({ steps }: { steps: string[] }) {
   return (
-    <ol className="mono flex flex-wrap items-center gap-1.5 text-[12px] text-[#9aa0b2]" aria-label="Data flow">
+    <ol className="mono flex flex-wrap items-center gap-1.5 text-[12px] text-[#8a8a8a]" aria-label="Data flow">
       {steps.map((s, i) => (
         <li key={s} className="flex items-center gap-1.5">
           {i > 0 && (
-            <span aria-hidden="true" className="text-[#4f7cff]">
+            <span aria-hidden="true" className="text-white">
               →
             </span>
           )}

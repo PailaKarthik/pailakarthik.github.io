@@ -6,10 +6,10 @@ export function Footer() {
     <footer className="border-t border-white/[0.07] py-10" aria-label="Footer">
       <div className="wrap flex flex-col items-center justify-between gap-5 sm:flex-row">
         <div>
-          <p className="font-semibold tracking-tight">{profile.name}</p>
-          <p className="mt-0.5 text-sm text-[#6b7184]">{profile.role}</p>
+          <p className="font-semibold tracking-tight text-white">{profile.name}</p>
+          <p className="mt-0.5 text-sm text-[#8a8a8a]">{profile.role}</p>
         </div>
-        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-[#9aa0b2]">
+        <nav aria-label="Footer" className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-[#8a8a8a]">
           <a href={profile.links.github} target="_blank" rel="noreferrer" className="hover:text-white">
             GitHub
           </a>
@@ -23,7 +23,7 @@ export function Footer() {
             Email
           </a>
         </nav>
-        <p className="mono text-[12px] text-[#6b7184]">© {year} {profile.name}</p>
+        <p className="mono text-[12px] text-[#8a8a8a]">© {year} {profile.name}</p>
       </div>
     </footer>
   );
