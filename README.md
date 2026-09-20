@@ -1,32 +1,34 @@
-# Personal Portfolio Website
+# Karthik Paila — Portfolio
 
-Welcome to my personal portfolio website! This repository contains the source code for my portfolio, which is hosted on **GitHub Pages** at [https://pailakarthik.github.io](https://pailakarthik.github.io).
+Live: **https://pailakarthik.github.io/**
 
-## 🌟 Features
+Full-Stack Developer · AI Builder portfolio. React + TypeScript + Vite +
+Tailwind CSS + Framer Motion, deployed to GitHub Pages from `main` via
+`.github/workflows/deploy.yml` (builds `dist/` and publishes with official
+Pages actions, `base: "/"`).
 
-- **Responsive Design**: Optimized for all devices including desktops, tablets, and smartphones.
-- **About Me Section**: A brief introduction and overview of my background and skills.
-- **Projects Showcase**: A gallery of my projects with descriptions, links, and live demos.
-- **Contact Form**: A simple form to reach me directly via email.
+## Develop
 
-## 🚀 Technologies Used
+```powershell
+npm install
+npm run dev
+npm run build
+npm run preview
+```
 
-- **HTML5**: For the structure of the website.
-- **CSS3**: For styling and layout.
-- **GitHub Pages**: For hosting the website.
+## Structure
 
-## 📂 File Structure
+- `src/data/portfolio.ts` — all personal content (single source of truth)
+- `src/components/` — Navbar, Hero, About, Skills, Projects, Achievements,
+  Hackathons, Education, Contact, Footer, ArchitectureDiagram
+- `public/assets/resume/Karthik-Paila-Resume.pdf` — downloadable resume
+- `public/assets/profile/` — place `profile.jpg` here to add a photo (optional)
 
-```plaintext
-.
-├── index.html         # Main landing page
-├── about.html         # About Me page
-├── projects.html      # Projects page
-├── contact.html       # Contact page
-├── css/
-│   └── styles.css     # Main CSS file
-├── js/
-│   └── script.js      # Main JavaScript file
-├── images/            # Image assets
-├── README.md          # Documentation file
-└── CNAME              # (Optional) For custom domain
+## Notes
+
+- No Figma URLs were embedded: no verified Figma/Expo links were supplied in
+  the brief except the RiskView Expo build (linked from its README) and the AI
+  Study Companion live URL. Figma buttons were omitted rather than guessed.
+- ApteeZ is shown as **In Development**, never as live.
+- All stats (1850+ rating, Top 5%, 1500+ DSA, 9.26 CGPA, Hack24 ₹30K, NPTEL 82%)
+  are rendered exactly as specified.
