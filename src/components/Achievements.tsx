@@ -1,6 +1,7 @@
 import { achievements } from "../data/portfolio";
 import { SectionHeading } from "./ui/SectionHeading";
 import { Reveal } from "./ui/Reveal";
+import { Tilt } from "./ui/Tilt";
 
 export function Achievements() {
   return (
@@ -14,17 +15,27 @@ export function Achievements() {
       <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {achievements.map((a, i) => (
           <Reveal key={a.title} delay={Math.min(i * 0.05, 0.2)}>
-            <div
-              className={
-                "featured" in a && a.featured
-                  ? "glass lift spotlight h-full rounded-[24px] border-white/[0.16] p-6"
-                  : "glass lift spotlight h-full rounded-[24px] p-6"
-              }
-            >
-              <p className="eyebrow">{a.title}</p>
-              <p className="mono mt-3 text-4xl font-semibold tracking-tight text-white">{a.metric}</p>
-              <p className="mt-2 text-sm leading-relaxed text-[#8a8a8a]">{a.detail}</p>
-            </div>
+            <Tilt className="h-full" max={4}>
+              <div
+                className="glass lift spotlight sheen h-full rounded-[24px] p-6"
+                style={
+                  "featured" in a && a.featured
+                    ? { borderColor: "var(--glass-border-hover)" }
+                    : undefined
+                }
+              >
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow">{a.title}</p>
+                  <span
+                    aria-hidden="true"
+                    className={`geo-shape ${i % 3 === 0 ? "geo-ring" : i % 3 === 1 ? "geo-square" : "geo-diamond"}`}
+                    style={{ width: 22, height: 22, position: "static", opacity: 0.8 }}
+                  />
+                </div>
+                <p className="mono mt-3 text-4xl font-semibold tracking-tight t1">{a.metric}</p>
+                <p className="mt-2 text-sm leading-relaxed t3">{a.detail}</p>
+              </div>
+            </Tilt>
           </Reveal>
         ))}
       </div>

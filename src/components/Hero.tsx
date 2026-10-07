@@ -7,11 +7,22 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 function PortraitCard({ reduce }: { reduce: boolean }) {
   return (
-    <div className="glass relative overflow-hidden rounded-[28px] p-2.5">
+    <div className="glass sheen relative overflow-hidden rounded-[28px] p-2.5">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-1/2 z-10 h-48 w-[120%] -translate-x-1/2 rounded-full"
-        style={{ background: "radial-gradient(closest-side, rgba(255,255,255,0.14), transparent)" }}
+        style={{ background: "var(--hero-glow)" }}
+      />
+      {/* geometric accents on portrait */}
+      <div
+        aria-hidden="true"
+        className="geo-shape geo-ring absolute top-4 right-4 z-10 hidden sm:block"
+        style={{ width: 44, height: 44, animation: "float-a 7s ease-in-out infinite" }}
+      />
+      <div
+        aria-hidden="true"
+        className="geo-shape geo-square absolute bottom-14 left-4 z-10 hidden sm:block"
+        style={{ width: 30, height: 30, animation: "float-b 8s ease-in-out infinite", opacity: 0.8 }}
       />
       <motion.div
         initial={reduce ? {} : { opacity: 0, scale: 1.04 }}
@@ -35,13 +46,13 @@ function PortraitCard({ reduce }: { reduce: boolean }) {
         />
       </motion.div>
       <div className="flex items-center justify-between px-2.5 py-3">
-        <p className="mono text-[11px] tracking-[0.2em] text-[#8a8a8a] uppercase">
+        <p className="mono text-[11px] tracking-[0.2em] uppercase t3">
           Karthik Paila
         </p>
-        <p className="mono flex items-center gap-1.5 text-[11px] text-[#d4d4d4]">
+        <p className="mono flex items-center gap-1.5 text-[11px] t2">
           <span className="relative flex size-2" aria-hidden="true">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-50" />
-            <span className="relative inline-flex size-2 rounded-full bg-white" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full" style={{ background: "var(--text-1)", opacity: 0.5 }} />
+            <span className="relative inline-flex size-2 rounded-full" style={{ background: "var(--text-1)" }} />
           </span>
           open to work
         </p>
@@ -56,8 +67,8 @@ export function Hero() {
     reduce
       ? {}
       : {
-          initial: { opacity: 0, y: 26 },
-          animate: { opacity: 1, y: 0 },
+          initial: { opacity: 0, y: 26, filter: "blur(8px)" },
+          animate: { opacity: 1, y: 0, filter: "blur(0px)" },
           transition: { duration: 0.8, delay, ease },
         };
 
@@ -70,29 +81,26 @@ export function Hero() {
           </motion.p>
           <motion.h1
             {...anim(0.08)}
-            className="mt-4 text-[2.65rem] leading-[1.04] font-bold tracking-tight text-balance text-white sm:text-6xl lg:text-7xl"
+            className="mt-4 text-[2.65rem] leading-[1.04] font-bold tracking-tight text-balance t1 sm:text-6xl lg:text-7xl"
           >
             Karthik Paila
           </motion.h1>
-          <motion.p {...anim(0.14)} className="mt-4 text-xl font-medium tracking-tight text-white sm:text-2xl">
+          <motion.p {...anim(0.14)} className="mt-4 text-xl font-medium tracking-tight t1 sm:text-2xl">
             {profile.headline}
           </motion.p>
-          <motion.p {...anim(0.18)} className="mt-4 max-w-xl leading-relaxed text-[#8a8a8a]">
+          <motion.p {...anim(0.18)} className="mt-4 max-w-xl leading-relaxed t3">
             {profile.tagline}
           </motion.p>
 
           <motion.div {...anim(0.24)} className="mt-8 flex flex-wrap items-center gap-3">
-            <a
-              href="#work"
-              className="inline-flex items-center gap-2 rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition-colors hover:bg-[#d4d4d4]"
-            >
+            <a href="#work" className="btn-primary">
               View Work
               <ArrowDown className="size-4" aria-hidden="true" />
             </a>
             <a
               href={profile.resumePath}
               download="Karthik-Paila-Resume.pdf"
-              className="glass-soft inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-sm font-semibold text-white transition-colors hover:border-white/25"
+              className="btn-glass"
             >
               <FileText className="size-4" aria-hidden="true" />
               Download Resume
@@ -102,13 +110,15 @@ export function Hero() {
           <motion.nav
             {...anim(0.3)}
             aria-label="Social links"
-            className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm text-[#8a8a8a]"
+            className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm t3"
           >
             <a
               href={profile.links.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+              className="inline-flex items-center gap-1.5 transition-colors"
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "")}
             >
               <GithubIcon className="size-4" /> GitHub
             </a>
@@ -116,7 +126,9 @@ export function Hero() {
               href={profile.links.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 transition-colors hover:text-white"
+              className="inline-flex items-center gap-1.5 transition-colors"
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "")}
             >
               <LinkedinIcon className="size-4" /> LinkedIn
             </a>
@@ -124,22 +136,29 @@ export function Hero() {
               href={profile.links.leetcode}
               target="_blank"
               rel="noopener noreferrer"
-              className="transition-colors hover:text-white"
+              className="transition-colors"
+              onMouseEnter={(e) => (e.currentTarget.style.color = "var(--text-1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "")}
             >
               LeetCode
             </a>
           </motion.nav>
 
           <motion.dl {...anim(0.36)} className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
-            {profile.stats.map((s) => (
-              <div key={s.label}>
-                <dd className="text-2xl font-semibold tracking-tight text-white sm:text-[1.7rem]">
+            {profile.stats.map((s, i) => (
+              <motion.div
+                key={s.label}
+                initial={reduce ? {} : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 + i * 0.07, ease }}
+              >
+                <dd className="text-2xl font-semibold tracking-tight t1 sm:text-[1.7rem]">
                   {s.value}
                 </dd>
-                <dt className="mono mt-1 text-[11px] tracking-[0.14em] text-[#8a8a8a] uppercase">
+                <dt className="mono mt-1 text-[11px] tracking-[0.14em] uppercase t3">
                   {s.label}
                 </dt>
-              </div>
+              </motion.div>
             ))}
           </motion.dl>
         </div>

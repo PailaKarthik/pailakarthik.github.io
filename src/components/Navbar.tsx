@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { FileText, Menu, X } from "lucide-react";
+import { FileText, Menu, Moon, Sun, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { nav, profile } from "../data/portfolio";
+import type { Theme } from "./ui/useTheme";
 
 /**
  * Scroll-spy: observes each section and marks the dominant
@@ -50,7 +51,13 @@ function useActiveSection(ids: readonly string[]) {
 
 const sectionIds = nav.map((n) => n.id);
 
-export function Navbar() {
+export function Navbar({
+  theme,
+  onToggleTheme,
+}: {
+  theme: Theme;
+  onToggleTheme: () => void;
+}) {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useActiveSection(sectionIds);
@@ -68,20 +75,24 @@ export function Navbar() {
         <nav
           aria-label="Primary"
           className="glass mt-3 flex items-center justify-between gap-3 rounded-[20px] py-2 pr-2 pl-4 transition-all duration-300 sm:pl-5"
-          style={
-            scrolled
-              ? { background: "rgba(5,5,5,0.72)", boxShadow: "0 12px 40px -12px rgba(0,0,0,0.9), inset 0 1px 0 rgba(255,255,255,0.08)" }
-              : { background: "rgba(5,5,5,0.4)" }
-          }
+          style={{
+            background: scrolled
+              ? "var(--nav-bg-scrolled)"
+              : "var(--nav-bg)",
+          }}
         >
           <a href="#home" className="flex shrink-0 items-center gap-2.5" aria-label="Karthik Paila — home">
             <span
               aria-hidden="true"
-              className="grid size-8 place-items-center rounded-xl border border-white/15 bg-white/[0.07] text-sm font-bold text-white"
+              className="grid size-8 place-items-center rounded-xl text-sm font-bold t1"
+              style={{
+                border: "1px solid var(--glass-border)",
+                background: "var(--secondary-btn-bg)",
+              }}
             >
               K
             </span>
-            <span className="hidden text-[15px] font-semibold tracking-tight min-[400px]:block">
+            <span className="hidden text-[15px] font-semibold tracking-tight min-[400px]:block t1">
               Karthik Paila
             </span>
           </a>
@@ -95,15 +106,20 @@ export function Navbar() {
                     href={n.href}
                     aria-current={isActive ? "true" : undefined}
                     onClick={() => setActive(n.id)}
-                    className={`relative rounded-xl px-3 py-2 text-[13.5px] transition-colors duration-200 ${
-                      isActive ? "text-white" : "text-[#8a8a8a] hover:text-[#d4d4d4]"
+                    className={`nav-link relative rounded-xl px-3 py-2 text-[13.5px] transition-colors duration-200 ${
+                      isActive ? "t1" : "t3 hover:t2"
                     }`}
+                    style={isActive ? undefined : { color: "var(--text-3)" }}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-active-pill"
                         transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                        className="absolute inset-0 rounded-xl border border-white/15 bg-white/[0.1] shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
+                        className="absolute inset-0 rounded-xl"
+                        style={{
+                          border: "1px solid var(--glass-border)",
+                          background: "var(--secondary-btn-bg)",
+                        }}
                         aria-hidden="true"
                       />
                     )}
@@ -115,17 +131,42 @@ export function Navbar() {
           </ul>
 
           <div className="flex shrink-0 items-center gap-2">
+            <button
+              type="button"
+              onClick={onToggleTheme}
+              className="theme-toggle"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
+              title={theme === "dark" ? "Light mode" : "Dark mode"}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span
+                  key={theme}
+                  initial={{ rotate: -70, opacity: 0, scale: 0.7 }}
+                  animate={{ rotate: 0, opacity: 1, scale: 1 }}
+                  exit={{ rotate: 70, opacity: 0, scale: 0.7 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                  className="grid place-items-center"
+                >
+                  {theme === "dark" ? (
+                    <Sun className="size-[18px]" aria-hidden="true" />
+                  ) : (
+                    <Moon className="size-[18px]" aria-hidden="true" />
+                  )}
+                </motion.span>
+              </AnimatePresence>
+            </button>
             <a
               href={profile.resumePath}
               download="Karthik-Paila-Resume.pdf"
-              className="hidden items-center gap-1.5 rounded-xl border border-white/15 bg-white px-3.5 py-2 text-sm font-semibold text-black transition-colors hover:bg-[#d4d4d4] sm:inline-flex"
+              className="btn-primary hidden !py-2 !px-3.5 sm:inline-flex"
             >
               <FileText className="size-4" aria-hidden="true" />
               Resume
             </a>
             <button
               type="button"
-              className="grid size-9 place-items-center rounded-xl border border-white/10 bg-white/[0.05] lg:hidden"
+              className="grid size-9 place-items-center rounded-xl t1 lg:hidden"
+              style={{ border: "1px solid var(--glass-border)", background: "var(--secondary-btn-bg)" }}
               aria-expanded={open}
               aria-label={open ? "Close menu" : "Open menu"}
               onClick={() => setOpen((v) => !v)}
@@ -139,10 +180,10 @@ export function Navbar() {
           {open && (
             <motion.nav
               aria-label="Mobile"
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.22 }}
+              initial={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              exit={{ opacity: 0, y: -8, filter: "blur(6px)" }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               className="glass mt-2 overflow-hidden rounded-[20px] p-2 lg:hidden"
             >
               <ul className="flex flex-col">
@@ -157,11 +198,16 @@ export function Navbar() {
                           setActive(n.id);
                           setOpen(false);
                         }}
-                        className={`block rounded-xl px-4 py-3 text-[15px] transition-colors ${
+                        className="block rounded-xl px-4 py-3 text-[15px] transition-colors"
+                        style={
                           isActive
-                            ? "border border-white/15 bg-white/[0.1] text-white"
-                            : "text-[#8a8a8a] hover:bg-white/[0.06] hover:text-white"
-                        }`}
+                            ? {
+                                border: "1px solid var(--glass-border)",
+                                background: "var(--secondary-btn-bg)",
+                                color: "var(--text-1)",
+                              }
+                            : { color: "var(--text-3)" }
+                        }
                       >
                         {n.label}
                       </a>
@@ -172,7 +218,7 @@ export function Navbar() {
                   <a
                     href={profile.resumePath}
                     download="Karthik-Paila-Resume.pdf"
-                    className="flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-semibold text-black"
+                    className="btn-primary w-full justify-center"
                   >
                     <FileText className="size-4" aria-hidden="true" />
                     Download Resume

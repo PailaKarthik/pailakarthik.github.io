@@ -65,8 +65,8 @@ export const projects: Project[] = [
     index: "01",
     name: "ApteeZ",
     category: "Competitive Aptitude Platform",
-    status: "In Development",
-    statusNote: "Engineering case study — not yet live",
+    status: "Live",
+    statusNote: "Live application",
     description:
       "A full-stack competitive aptitude platform with 1v1 challenges, timed contests, ratings, leaderboards, structured learning, events, discussions, contributions and performance analytics across multiple aptitude domains.",
     stack: [
@@ -106,6 +106,7 @@ export const projects: Project[] = [
       "pgvector",
     ],
     links: [
+      { label: "Live Demo", href: "https://apteez.vercel.app", kind: "demo" },
       { label: "GitHub", href: "https://github.com/PailaKarthik/Apteez", kind: "github" },
       {
         label: "View Figma",

@@ -1,7 +1,8 @@
 export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string }) {
   return (
     <div
-      className="scroll-x overflow-x-auto rounded-2xl border border-white/10 bg-black/30 p-4"
+      className="scroll-x overflow-x-auto rounded-2xl p-4"
+      style={{ border: "1px solid var(--glass-border)", background: "var(--code-bg)" }}
       role="img"
       aria-label={`Architecture flow: ${steps.join(" to ")}`}
     >
@@ -22,7 +23,8 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                   y1={42}
                   x2={x - 6}
                   y2={42}
-                  stroke="rgba(255,255,255,0.45)"
+                  stroke="var(--text-3)"
+                  strokeOpacity="0.7"
                   strokeWidth="1.5"
                   markerEnd={`url(#arrow-${id})`}
                   className="flow-line"
@@ -34,14 +36,15 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                 width={118}
                 height={56}
                 rx={12}
-                fill={isLast ? "rgba(255,255,255,0.1)" : "rgba(255,255,255,0.04)"}
-                stroke={isLast ? "rgba(255,255,255,0.35)" : "rgba(255,255,255,0.14)"}
+                fill="var(--secondary-btn-bg)"
+                stroke="var(--glass-border)"
+                strokeWidth={isLast ? 1.6 : 1}
               />
               <text
                 x={x + 59}
                 y={42}
                 textAnchor="middle"
-                fill="#ffffff"
+                fill="var(--text-1)"
                 fontSize="10.5"
                 fontFamily="JetBrains Mono, monospace"
               >
@@ -52,7 +55,7 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
                 x={x + 59}
                 y={56}
                 textAnchor="middle"
-                fill="#8a8a8a"
+                fill="var(--text-3)"
                 fontSize="9"
                 fontFamily="JetBrains Mono, monospace"
               >
@@ -63,7 +66,7 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
         })}
         <defs>
           <marker id={`arrow-${id}`} markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-            <path d="M0,0 L6,3 L0,6" fill="none" stroke="rgba(255,255,255,0.6)" strokeWidth="1.2" />
+            <path d="M0,0 L6,3 L0,6" fill="none" stroke="var(--text-3)" strokeWidth="1.2" />
           </marker>
         </defs>
       </svg>
@@ -73,15 +76,20 @@ export function ArchitectureDiagram({ steps, id }: { steps: string[]; id: string
 
 export function FlowStrip({ steps }: { steps: string[] }) {
   return (
-    <ol className="mono flex flex-wrap items-center gap-1.5 text-[12px] text-[#8a8a8a]" aria-label="Data flow">
+    <ol className="mono flex flex-wrap items-center gap-1.5 text-[12px] t3" aria-label="Data flow">
       {steps.map((s, i) => (
         <li key={s} className="flex items-center gap-1.5">
           {i > 0 && (
-            <span aria-hidden="true" className="text-white">
+            <span aria-hidden="true" className="t1">
               →
             </span>
           )}
-          <span className="rounded-md border border-white/10 bg-white/[0.04] px-2 py-1">{s}</span>
+          <span
+            className="pill rounded-md px-2 py-1"
+            style={{ border: "1px solid var(--glass-border)", background: "var(--secondary-btn-bg)" }}
+          >
+            {s}
+          </span>
         </li>
       ))}
     </ol>
