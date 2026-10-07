@@ -24,7 +24,7 @@ export function Loader({ show }: { show: boolean }) {
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="loader-shape" />
+              <div className="loader-mark">K</div>
             </motion.div>
             <p className="mono mt-5 text-[11px] tracking-[0.3em] uppercase t3">
               Karthik Paila

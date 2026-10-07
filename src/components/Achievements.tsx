@@ -17,7 +17,7 @@ export function Achievements() {
           <Reveal key={a.title} delay={Math.min(i * 0.05, 0.2)}>
             <Tilt className="h-full" max={4}>
               <div
-                className="glass lift spotlight sheen h-full rounded-[24px] p-6"
+                className="glass lift spotlight h-full rounded-[20px] p-6"
                 style={
                   "featured" in a && a.featured
                     ? { borderColor: "var(--glass-border-hover)" }
@@ -26,11 +26,6 @@ export function Achievements() {
               >
                 <div className="flex items-center justify-between">
                   <p className="eyebrow">{a.title}</p>
-                  <span
-                    aria-hidden="true"
-                    className={`geo-shape ${i % 3 === 0 ? "geo-ring" : i % 3 === 1 ? "geo-square" : "geo-diamond"}`}
-                    style={{ width: 22, height: 22, position: "static", opacity: 0.8 }}
-                  />
                 </div>
                 <p className="mono mt-3 text-4xl font-semibold tracking-tight t1">{a.metric}</p>
                 <p className="mt-2 text-sm leading-relaxed t3">{a.detail}</p>

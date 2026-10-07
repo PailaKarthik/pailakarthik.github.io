@@ -7,54 +7,47 @@ const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 function PortraitCard({ reduce }: { reduce: boolean }) {
   return (
-    <div className="glass sheen relative overflow-hidden rounded-[28px] p-2.5">
+    <div className="glass relative overflow-hidden rounded-[24px] p-2.5">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -top-24 left-1/2 z-10 h-48 w-[120%] -translate-x-1/2 rounded-full"
         style={{ background: "var(--hero-glow)" }}
       />
-      {/* geometric accents on portrait */}
-      <div
-        aria-hidden="true"
-        className="geo-shape geo-ring absolute top-4 right-4 z-10 hidden sm:block"
-        style={{ width: 44, height: 44, animation: "float-a 7s ease-in-out infinite" }}
-      />
-      <div
-        aria-hidden="true"
-        className="geo-shape geo-square absolute bottom-14 left-4 z-10 hidden sm:block"
-        style={{ width: 30, height: 30, animation: "float-b 8s ease-in-out infinite", opacity: 0.8 }}
-      />
       <motion.div
-        initial={reduce ? {} : { opacity: 0, scale: 1.04 }}
+        initial={reduce ? {} : { opacity: 0, scale: 1.03 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.1, delay: 0.25, ease }}
-        className="relative overflow-hidden rounded-[20px]"
+        transition={{ duration: 1, delay: 0.25, ease }}
+        className="relative overflow-hidden rounded-[16px]"
       >
         <img
           src={profile.photo}
           alt="Portrait of Karthik Paila"
           fetchPriority="high"
-          className="aspect-[4/5] w-full object-cover object-top grayscale-[15%]"
+          className="aspect-[4/5] w-full object-cover object-top grayscale-[12%]"
         />
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, rgba(255,255,255,0.08) 0%, transparent 22%, transparent 62%, rgba(0,0,0,0.55) 100%)",
+              "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.5) 100%)",
           }}
         />
+        <div className="absolute top-3 left-3">
+          <span
+            className="glass-soft inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-[11px] font-medium t1"
+          >
+            <span className="status-dot" aria-hidden="true" />
+            Open to work
+          </span>
+        </div>
       </motion.div>
       <div className="flex items-center justify-between px-2.5 py-3">
-        <p className="mono text-[11px] tracking-[0.2em] uppercase t3">
+        <p className="mono text-[11px] tracking-[0.18em] uppercase t1">
           Karthik Paila
         </p>
-        <p className="mono flex items-center gap-1.5 text-[11px] t2">
-          <span className="relative flex size-2" aria-hidden="true">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full" style={{ background: "var(--text-1)", opacity: 0.5 }} />
-            <span className="relative inline-flex size-2 rounded-full" style={{ background: "var(--text-1)" }} />
-          </span>
-          open to work
+        <p className="mono text-[11px] t3">
+          Full-stack · AI
         </p>
       </div>
     </div>
@@ -148,11 +141,13 @@ export function Hero() {
             {profile.stats.map((s, i) => (
               <motion.div
                 key={s.label}
-                initial={reduce ? {} : { opacity: 0, y: 14 }}
+                initial={reduce ? {} : { opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 + i * 0.07, ease }}
+                transition={{ duration: 0.55, delay: 0.4 + i * 0.07, ease }}
+                className="pt-4"
+                style={{ borderTop: "1px solid var(--hairline)" }}
               >
-                <dd className="text-2xl font-semibold tracking-tight t1 sm:text-[1.7rem]">
+                <dd className="text-[1.55rem] font-semibold tracking-tight t1">
                   {s.value}
                 </dd>
                 <dt className="mono mt-1 text-[11px] tracking-[0.14em] uppercase t3">

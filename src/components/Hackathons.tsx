@@ -17,7 +17,7 @@ export function Hackathons() {
         {hackathons.map((h, i) => (
           <Reveal key={h.name} delay={Math.min(i * 0.06, 0.15)}>
             <Tilt className="h-full" max={4}>
-              <article className="glass lift spotlight sheen flex h-full flex-col rounded-[24px] p-6">
+              <article className="glass lift spotlight flex h-full flex-col rounded-[20px] p-6">
                 {i === 0 && (
                   <p
                     className="inline-flex w-fit items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium t1"

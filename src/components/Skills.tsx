@@ -4,8 +4,6 @@ import { Reveal } from "./ui/Reveal";
 import { Spotlight } from "./ui/Spotlight";
 import { Tilt } from "./ui/Tilt";
 
-const shapes = ["geo-ring", "geo-square", "geo-diamond"];
-
 export function Skills() {
   return (
     <section id="skills" className="wrap scroll-mt-28 py-14 sm:py-20" aria-label="Skills">
@@ -19,22 +17,16 @@ export function Skills() {
         {skills.map((g, i) => (
           <Reveal key={g.title} delay={Math.min(i * 0.08, 0.4)} y={36}>
             <Tilt className="h-full" max={4}>
-              <Spotlight className="glass lift sheen relative h-full overflow-hidden rounded-[24px] p-6">
+              <Spotlight className="glass lift relative h-full overflow-hidden rounded-[20px] p-6">
                 <div>
-                  <div className="flex items-start justify-between">
+                  <div className="flex items-center justify-between">
                     <p className="mono text-[11px] tracking-[0.24em] uppercase t3">
                       {String(i + 1).padStart(2, "0")}
                     </p>
                     <span
                       aria-hidden="true"
-                      className={`geo-shape ${shapes[i % shapes.length]}`}
-                      style={{
-                        width: 30,
-                        height: 30,
-                        position: "static",
-                        opacity: 0.9,
-                        animation: `float-a ${7 + i}s ease-in-out infinite`,
-                      }}
+                      className="h-px w-10"
+                      style={{ background: "var(--hairline)" }}
                     />
                   </div>
                   <h3 className="mono mt-1.5 text-[13px] tracking-[0.18em] uppercase t1">
